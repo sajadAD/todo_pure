@@ -1,28 +1,48 @@
 <?php
 // Initialize the session
 session_start();
- 
+
+// initialize errors variable
+$errors = "";
+
 // Check if the user is logged in, if not then redirect him to login page
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: login.php");
-    exit;
+if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
+  header("location: login.php");
+  exit;
+}
+
+// Include config file
+require_once "config.php";
+
+//insert a quote if submit button is clicked
+if (isset($_POST['submit'])) {
+  if (empty($_POST['task'])) {
+    $errors = "You must fill in the task";
+  } else {
+    $task = $_POST['task'];
+    $sql = "INSERT INTO tasks (task) VALUES ('$task')";
+    mysqli_query($db, $sql);
+    header('location: index.php');
+  }
 }
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
-    <link rel="stylesheet" href="../style.css">
-    
+  <meta charset="UTF-8">
+  <title>Welcome</title>
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+  <link rel="stylesheet" href="../style.css">
+
 </head>
-<body>
-    <h1 class="my-5">Hi, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>. Welcome to our site.</h1>
-    <p>
-        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
-    </p>
+
+<!-- <body>
+  <h1>Hi,<span class="username"><?php echo htmlspecialchars($_SESSION["username"]); ?></span> Welcome to our site.</h1>
+  <p>
+    <a href="logout.php" class="btn-danger">Sign Out of Your Account</a>
+  </p>
   <div class="container">
     <div class="jumbotron page-header">
       <h2 style="margin:5px">My To Do List</h2>
@@ -52,6 +72,75 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     </ul>
   </div>
   <ul id="pagination" class="pagination pagination-lg"></ul>
-  <script src="../index.js">  </script>
+  <script src="../index.js"></script>
+</body> -->
+
+<body>
+  <div class="top_welcome">
+    <h1>Hi,<span class="username"><?php echo htmlspecialchars($_SESSION["username"]); ?></span> Welcome to our site.</h1>
+    <p>
+      <a href="logout.php" class="btn-danger">Sign Out of Your Account</a>
+    </p>
+  </div>
+  <div class="todos">
+    <div class="card">
+      <div class="head">
+        <h2>To Do</h2>
+      </div>
+      <div class="main_card">
+        <?php if (isset($errors)) { ?>
+          <p><?php echo $errors; ?></p>
+        <?php } ?>
+        <form action="welcome.php">
+          <div class="form-group">
+            <label for="title">Task:</label>
+            <input type="text" id="title" class="form-control" placeholder="Add a title... ">
+          </div>
+          <div class="form-group">
+            <label for="usr">Who should do it:</label>
+            <input type="text" id="usr" class="form-control" placeholder="Add a user...">
+          </div>
+          <div class="form-group">
+            <label for="usr">Due Date:</label>
+            <input type="date" id="due-date" class="form-control" placeholder="Due date">
+          </div>
+          <div class="row">
+            <div class="col-xs-3 pull-left">
+              <button type="button" class="btn btn-primary" onclick="newElement()">Add Task</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 60px;">list</th>
+          <th>Tasks</th>
+          <th style="width: 60px;">Action</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <?php
+        // select all tasks if page is visited or refreshed
+        $tasks = mysqli_query($mysqli, "SELECT * FROM todos");
+
+        $i = 1;
+        while ($row = mysqli_fetch_array($tasks)) { ?>
+          <tr>
+            <td> <?php echo $i; ?> </td>
+            <td class="task"> <?php echo $row['text']; ?> </td>
+            <td class="delete">
+              <a href="index.php?del_task=<?php echo $row['id'] ?>">x</a>
+            </td>
+          </tr>
+        <?php $i++;
+        } ?>
+      </tbody>
+    </table>
+    <script src="../index.js"></script>
+  </div>
 </body>
+
 </html>
