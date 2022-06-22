@@ -149,6 +149,12 @@ a {
 .form-group span {
   color: red;
 }
+.main_card p {
+  color: red;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px dashed #c8233370;
+}
 .todos {
   width: 100%;
   display: flex;
@@ -191,11 +197,15 @@ tr {
 
 th {
   font-size: 19px;
-  color: #6b8e23;
+  color: rgb(37, 172, 55);
 }
 
 th,
 td {
+  max-width: 55px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   text-align: center !important;
   border: none;
   height: 30px;
@@ -214,10 +224,24 @@ tr:hover {
 .delete {
   text-align: center;
 }
-.delete a {
+.delete {
   color: white;
-  background: #b62635;
-  padding: 1px 6px;
+  background: #c82333;
+  padding:4px;
+  border-radius: 3px;
+  text-decoration: none;
+}
+.done {
+  color: white;
+  background: rgb(37, 172, 55);
+  padding: 4px;
+  border-radius: 3px;
+  text-decoration: none;
+}
+.edit {
+  color: white;
+  background: #007bff;
+  padding: 4px;
   border-radius: 3px;
   text-decoration: none;
 }
