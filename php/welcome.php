@@ -4,6 +4,7 @@ session_start();
 
 // initialize errors variable
 $errors = "Insert TODO";
+$editTask = true;
 
 // Check if the user is logged in, if not then redirect him to login page
 if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
@@ -49,6 +50,10 @@ if (isset($_GET['Undone_task'])) {
   mysqli_query($mysqli, "UPDATE todos SET done = false WHERE id=" . $id);
   header('location: welcome.php');
 }
+// edit task
+if (isset($_GET['edit_task'])) {
+  $editTask = !$editTask;
+}
 
 ?>
 
@@ -76,7 +81,7 @@ if (isset($_GET['Undone_task'])) {
       </div>
       <div class="main_card">
         <?php if (isset($errors)) { ?>
-          <p><?php echo $errors ?></p>
+          <p id="error"><?php echo $errors ?></p>
         <?php } ?>
         <form method="post" action="welcome.php">
           <div class="form-group">
@@ -124,8 +129,7 @@ if (isset($_GET['Undone_task'])) {
             <td class="task" style="<?php if ($row['done']) echo 'text-decoration: line-through;' ?>"> <?php echo $row['time_e']; ?> </td>
             <td>
               <a class="done" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?done_task=<?php echo $row['id'] ?>">Done</a>
-              <a class="done" style="<?php if (!$row['done']) echo 'display: none;' ?>" href="welcome.php?Undone_task=<?php echo $row['id'] ?>">UnDone</a>
-              <a class="edit" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?del_task=<?php echo $row['id'] ?>">Edit</a>
+              <a class="edit" style="<?php if (!$row['done']) echo 'display: none;' ?>" href="welcome.php?Undone_task=<?php echo $row['id'] ?>">UnDone</a>
               <a class="delete" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?del_task=<?php echo $row['id'] ?>">delete</a>
             </td>
           </tr>
