@@ -135,9 +135,8 @@ if (isset($_POST['id']) && isset($_POST['value'])) {
             <td class="task" style="<?php if ($row['done']) echo 'text-decoration: line-through;' ?>"> <?php echo $row['time_s']; ?> </td>
             <td class="task" style="<?php if ($row['done']) echo 'text-decoration: line-through;' ?>"> <?php echo $row['time_e']; ?> </td>
             <td>
-              <!-- <a class="done" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?done_task=<?php echo $row['id'] ?>">Done</a> -->
-              <input name="<?php echo $row['text']; ?>" id="<?php echo $row['id']; ?>" onclick="changeState(this)" type="checkbox" <?php if ($row['done']) echo 'checked'; ?> value="<?php if($row['done']) echo 0; else echo 1; ?>">
-              <!-- <a class="edit" style="<?php if (!$row['done']) echo 'display: none;' ?>" href="welcome.php?Undone_task=<?php echo $row['id'] ?>">UnDone</a> -->
+              <input name="<?php echo $row['text']; ?>" id="<?php echo $row['id']; ?>" onclick="changeState(this)" type="checkbox" <?php if ($row['done']) echo 'checked'; ?> value="<?php if ($row['done']) echo 0;
+                                                                                                                                                                                      else echo 1; ?>">
               <a class="delete" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?del_task=<?php echo $row['id'] ?>">delete</a>
             </td>
           </tr>
@@ -156,8 +155,17 @@ if (isset($_POST['id']) && isset($_POST['value'])) {
       id: id,
       value: value
     }, (text) => {
+      alert('chenged')
       window.location.reload();
     });
+
+  }
+
+  function editState(currEdit) {
+    var id = tocurrEdit.getAttribute('id')
+    // var an = document.getElementById(id.toString()).classList.remove('edit')
+    // var goh = document.getElementById(id).classList.add('done')
+    console.log(id.toString());
 
   }
 </script>

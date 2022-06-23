@@ -240,6 +240,7 @@ tr:hover {
 }
 .edit {
   color: white;
+  cursor: pointer;
   background: #007bff;
   padding: 4px;
   border-radius: 3px;
