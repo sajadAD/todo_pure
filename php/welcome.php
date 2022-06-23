@@ -55,6 +55,13 @@ if (isset($_GET['edit_task'])) {
   $editTask = !$editTask;
 }
 
+if (isset($_POST['id']) && isset($_POST['value'])) {
+  $id = $_POST['id'];
+  $value = $_POST['value'];
+  mysqli_query($mysqli, "UPDATE todos SET done = $value WHERE id=" . $id);
+  header('location: welcome.php');
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +71,7 @@ if (isset($_GET['edit_task'])) {
   <meta charset="UTF-8">
   <title>Welcome</title>
   <link rel="stylesheet" href="../style.css">
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -128,8 +135,9 @@ if (isset($_GET['edit_task'])) {
             <td class="task" style="<?php if ($row['done']) echo 'text-decoration: line-through;' ?>"> <?php echo $row['time_s']; ?> </td>
             <td class="task" style="<?php if ($row['done']) echo 'text-decoration: line-through;' ?>"> <?php echo $row['time_e']; ?> </td>
             <td>
-              <a class="done" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?done_task=<?php echo $row['id'] ?>">Done</a>
-              <a class="edit" style="<?php if (!$row['done']) echo 'display: none;' ?>" href="welcome.php?Undone_task=<?php echo $row['id'] ?>">UnDone</a>
+              <!-- <a class="done" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?done_task=<?php echo $row['id'] ?>">Done</a> -->
+              <input name="<?php echo $row['text']; ?>" id="<?php echo $row['id']; ?>" onclick="changeState(this)" type="checkbox" <?php if ($row['done']) echo 'checked'; ?> value="<?php if($row['done']) echo 0; else echo 1; ?>">
+              <!-- <a class="edit" style="<?php if (!$row['done']) echo 'display: none;' ?>" href="welcome.php?Undone_task=<?php echo $row['id'] ?>">UnDone</a> -->
               <a class="delete" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?del_task=<?php echo $row['id'] ?>">delete</a>
             </td>
           </tr>
@@ -139,5 +147,19 @@ if (isset($_GET['edit_task'])) {
     </table>
   </div>
 </body>
+<script>
+  function changeState(currTask) {
+    var value = currTask.getAttribute("value");
+    var id = currTask.getAttribute("id");
+
+    $.post("welcome.php", {
+      id: id,
+      value: value
+    }, (text) => {
+      window.location.reload();
+    });
+
+  }
+</script>
 
 </html>
