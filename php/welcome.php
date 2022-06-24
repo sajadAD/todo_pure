@@ -102,6 +102,7 @@ if (isset($_GET['edit_task'])) {
             </div>
           </div>
         </form>
+        <button type="submit" name="submit" class="btn-danger" onclick="history()">View History</button>
       </div>
     </div>
     <table>
@@ -138,6 +139,7 @@ if (isset($_GET['edit_task'])) {
       </tbody>
     </table>
   </div>
+  <script src="../index.js"></script>
 </body>
 
 </html>
