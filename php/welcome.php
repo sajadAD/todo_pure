@@ -125,13 +125,16 @@ if (isset($_GET['edit_task'])) {
         while ($row = mysqli_fetch_array($tasks)) { ?>
           <tr>
             <td> <?php echo $i; ?> </td>
-            <td class="task" style="<?php if ($row['done']) echo 'text-decoration: line-through;' ?>"> <?php echo $row['text']; ?> </td>
-            <td class="task" style="<?php if ($row['done']) echo 'text-decoration: line-through;' ?>"> <?php echo $row['time_s']; ?> </td>
-            <td class="task" style="<?php if ($row['done']) echo 'text-decoration: line-through;' ?>"> <?php echo $row['time_e']; ?> </td>
+            <td id="text_edit_<?php echo $row['id'] ?>" class="task" style="<?php if ($row['done']) echo 'text-decoration: line-through;' ?>"> <?php echo $row['text']; ?> </td>
+            <td class="edit_td" style="display: none"><input style="display: none" class="form-control-edit" type="text" value="<?php echo $row['text']; ?>"></td>
+            <td  class="task" style="<?php if ($row['done']) echo 'text-decoration: line-through;' ?>"> <?php echo $row['time_s']; ?> </td>
+            <td  class="task" style="<?php if ($row['done']) echo 'text-decoration: line-through;' ?>"> <?php echo $row['time_e']; ?> </td>
             <td>
-              <a class="done" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?done_task=<?php echo $row['id'] ?>">Done</a>
-              <a class="edit" style="<?php if (!$row['done']) echo 'display: none;' ?>" href="welcome.php?Undone_task=<?php echo $row['id'] ?>">UnDone</a>
-              <a class="delete" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?del_task=<?php echo $row['id'] ?>">delete</a>
+              <a class="done" id="done_<?php echo $row['id'] ?>" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?done_task=<?php echo $row['id'] ?>">Done</a>
+              <a class="edit" id="undone_<?php echo $row['id'] ?>" style="<?php if (!$row['done']) echo 'display: none;' ?>" href="welcome.php?Undone_task=<?php echo $row['id'] ?>">UnDone</a>
+              <a class="done" id="save_<?php echo $row['id'] ?>" style="display: none" href="welcome.php?saveEdit_task=<?php echo $row['id'] ?>">Save</a>
+              <a class="delete" id="delete_<?php echo $row['id'] ?>" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?del_task=<?php echo $row['id'] ?>">delete</a>
+              <a class="edit" id="<?php echo $row['id'] ?>" style="<?php if ($row['done']) echo 'display: none;' ?>" onclick="editView(this)" >edit</a>
             </td>
           </tr>
         <?php $i++;
