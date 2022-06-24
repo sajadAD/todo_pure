@@ -12,6 +12,20 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
 // Include config file
 require_once "config.php";
 
+// done task
+if (isset($_GET['done_task'])) {
+  $id = $_GET['done_task'];
+
+  mysqli_query($mysqli, "UPDATE todos SET done = true WHERE id=" . $id);
+  header('location: history.php');
+}
+// undone task
+if (isset($_GET['Undone_task'])) {
+  $id = $_GET['Undone_task'];
+
+  mysqli_query($mysqli, "UPDATE todos SET done = false WHERE id=" . $id);
+  header('location: history.php');
+}
 ?>
 
 <!DOCTYPE html>
@@ -55,8 +69,8 @@ require_once "config.php";
             <td class="task" style="<?php if ($row['done']) echo 'text-decoration: line-through;' ?>"> <?php echo $row['time_s']; ?> </td>
             <td class="task" style="<?php if ($row['done']) echo 'text-decoration: line-through;' ?>"> <?php echo $row['time_e']; ?> </td>
             <td>
-              <a class="done" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?done_task=<?php echo $row['id'] ?>">Done</a>
-              <a class="edit" style="<?php if (!$row['done']) echo 'display: none;' ?>" href="welcome.php?Undone_task=<?php echo $row['id'] ?>">UnDone</a>
+              <a class="done" style="<?php if ($row['done']) echo 'display: none;' ?>" href="history.php?done_task=<?php echo $row['id'] ?>">Done</a>
+              <a class="edit" style="<?php if (!$row['done']) echo 'display: none;' ?>" href="history.php?Undone_task=<?php echo $row['id'] ?>">UnDone</a>
               <!-- <a class="delete" style="<?php if ($row['done']) echo 'display: none;' ?>" href="welcome.php?del_task=<?php echo $row['id'] ?>">delete</a> -->
             </td>
           </tr>
