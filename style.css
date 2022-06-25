@@ -136,6 +136,14 @@ a {
   border-radius: 5px;
   cursor: pointer;
 }
+.btn-edit {
+  padding: 12px;
+  background: rgb(37, 172, 55);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .btn:hover {
   background: #0250a3;
 }
