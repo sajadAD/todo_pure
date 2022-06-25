@@ -1,6 +1,18 @@
 function history() {
   window.location.assign("history.php");
 }
+
+$(document).ready(function () {
+  $.get("alert.php", function (data, state) {
+    if (state == "success") {
+      if (data) {
+        alert("It's time to do the " + "'" + data + "'" + " task ");
+      }
+    } else {
+      alert("error");
+    }
+  });
+});
 function editView(idTask, textTask, timeSTask, timeETask) {
   document.getElementsByName("text")[0].value = textTask;
   document.getElementsByName("startDate")[0].value = timeSTask;

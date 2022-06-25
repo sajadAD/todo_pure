@@ -11,10 +11,8 @@ if (!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true) {
   header("location: login.php");
   exit;
 }
-
 // Include config file
 require_once "config.php";
-
 //insert a quote if submit button is clicked
 if (isset($_POST['submit'])) {
   if (empty($_POST['text']) && empty($_POST['startDate']) && empty($_POST['endDate'])) {
@@ -28,8 +26,6 @@ if (isset($_POST['submit'])) {
     header('location: welcome.php');
   }
 }
-
-
 // delete task
 if (isset($_GET['del_task'])) {
   $id = $_GET['del_task'];
@@ -37,7 +33,6 @@ if (isset($_GET['del_task'])) {
   mysqli_query($mysqli, "DELETE FROM todos WHERE id=" . $id);
   header('location: welcome.php');
 }
-
 // done task
 if (isset($_GET['done_task'])) {
   $id = $_GET['done_task'];
@@ -56,7 +51,6 @@ if (isset($_GET['Undone_task'])) {
 if (isset($_GET['edit_task'])) {
   $editTask = !$editTask;
 }
-
 ?>
 
 <!DOCTYPE html>
