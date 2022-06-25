@@ -1,7 +1,6 @@
 function history() {
   window.location.assign("history.php");
 }
-
 function editView(idTask, textTask, timeSTask, timeETask) {
   document.getElementsByName("text")[0].value = textTask;
   document.getElementsByName("startDate")[0].value = timeSTask;
@@ -23,9 +22,6 @@ function editSave() {
     startDate_edit: startDate,
     endDate_edit: endDate,
   };
-
-  console.log(text, id, startDate);
-
   $.ajax({
     data: data,
     type: "post",
