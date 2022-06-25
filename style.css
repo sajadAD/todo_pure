@@ -75,6 +75,22 @@ a {
   border-radius: 10px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+.form-control-edit {
+  display: block;
+  text-align: center;
+  width: 90%;
+  height: 16px;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 10px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
 .username {
   color: #323064;
   background-color: #a8a6e057;
@@ -120,6 +136,14 @@ a {
   border-radius: 5px;
   cursor: pointer;
 }
+.btn-edit {
+  padding: 12px;
+  background: rgb(37, 172, 55);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .btn:hover {
   background: #0250a3;
 }
@@ -149,7 +173,7 @@ a {
 .form-group span {
   color: red;
 }
-#error{
+#error {
   color: red;
   padding: 10px;
   border-radius: 10px;
@@ -202,7 +226,7 @@ th {
 
 th,
 td {
-  max-width: 70px;
+  /* max-width: 70px; */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -227,21 +251,25 @@ tr:hover {
 .delete {
   color: white;
   background: #c82333;
-  padding:4px;
+  padding: 5px;
+  font-size: 10px;
   border-radius: 3px;
   text-decoration: none;
 }
 .done {
   color: white;
   background: rgb(37, 172, 55);
-  padding: 4px;
+  padding: 5px;
+  font-size: 10px;
   border-radius: 3px;
   text-decoration: none;
 }
 .edit {
+  cursor: pointer;
   color: white;
   background: #007bff;
-  padding: 4px;
+  padding: 5px;
+  font-size: 10px;
   border-radius: 3px;
   text-decoration: none;
 }
