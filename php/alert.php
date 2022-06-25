@@ -26,4 +26,3 @@ if ($todayTimeStamp === $lastTimeStamp) {
         echo $last_task['text'];
     }
 }
-
