@@ -106,7 +106,7 @@ if (isset($_GET['edit_task'])) {
             </div>
           </div>
         </form>
-        <button type="submit" name="submit" class="btn-danger" onclick="history()">View History</button>
+        <button type="submit" name="submit" class="btn-edit" onclick="history()">View Done Tasks History</button>
       </div>
     </div>
     <table>
@@ -123,7 +123,7 @@ if (isset($_GET['edit_task'])) {
       <tbody>
         <?php
         // select all tasks if page is visited or refreshed
-        $tasks = mysqli_query($mysqli, "SELECT * FROM todos WHERE uid = $_SESSION[id]");
+        $tasks = mysqli_query($mysqli, "SELECT * FROM todos WHERE uid = $_SESSION[id] AND done = 0");
 
         $i = 1;
         while ($row = mysqli_fetch_array($tasks)) { ?>
